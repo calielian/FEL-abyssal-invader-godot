@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvsk5lrom1bbw"]
+
+[ext_resource type="Script" uid="uid://c8g8c8ogtjbjt" path="res://scripts/inimigo.gd" id="1_pt50e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_61lki"]
+size = Vector2(199.99998, 276.66663)
+
+[node name="Inimigo" type="Area2D" groups=["inimigo"]]
+rotation = 1.5707964
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_pt50e")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.666673, 2.10584e-06)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_61lki")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

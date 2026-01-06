@@ -1,7 +1,9 @@
-# FEL: Abyssal Invader
+# FEL: Abyssal Invader: Godot Edition
 
 Recriação do jogo no estilo Space Invader, feito em Java pelo NetBeans.
 Explore as profundezas do oceano, enfrentando criaturas sombrias jamais antes vistas.
+
+**Essa é uma versão refeita na engine [Godot](https://godotengine.org/), o código original é mantido aqui. O port está na pasta godot-port no repositório.**
 
 ## Sobre Nós
 Esse projeto foi feito pelo grupo 1 do *Projeto Game* da disciplina Programação Orientada a Objetos II do Curso de Informática para Internet, módulo (semestre) 4.

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BalaBase" load_steps=2 format=3 uid="uid://c7io8px15d37q"]
+
+[ext_resource type="Script" uid="uid://tr7vaev0126j" path="res://resources/scripts/bala_base.gd" id="1_ahnm1"]
+
+[resource]
+script = ExtResource("1_ahnm1")
+metadata/_custom_type_script = "uid://tr7vaev0126j"

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2pwtsirbt8oh"]
+
+[ext_resource type="Script" uid="uid://d3qaasymecgiy" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://dp722uf42mubq" path="res://images/player/player-idle.png" id="2_qhqgy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
+size = Vector2(58, 54)
+
+[node name="Player" type="Area2D"]
+rotation = -1.5707964
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qhqgy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dqkch")
+
+[node name="FrameInvencibilidade" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="FrameInvencibilidade" to="." method="_on_frame_invencibilidade_timeout"]

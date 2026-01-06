@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://tr7vaev0126j"
 radius = 23.0
 height = 116.0
 
-[node name="Bala" type="Area2D" groups=["bala"]]
+[node name="Bala" type="RigidBody2D" groups=["bala"]]
 script = ExtResource("1_27eus")
 stats = SubResource("Resource_8mjn7")
 

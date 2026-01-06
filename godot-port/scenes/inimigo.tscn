@@ -11,18 +11,20 @@
 [ext_resource type="Texture2D" uid="uid://bak0pltcvsibp" path="res://images/enemies/enemy-8.png" id="9_8tkr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_61lki"]
-size = Vector2(199.99998, 276.66663)
+size = Vector2(56, 73)
 
-[node name="Inimigo" type="Area2D" groups=["inimigo"]]
+[node name="Inimigo" type="RigidBody2D" groups=["inimigo"]]
 rotation = 1.5707964
-scale = Vector2(0.3, 0.3)
+gravity_scale = 0.0
 script = ExtResource("1_pt50e")
 sprites = Array[Texture2D]([ExtResource("2_rmr57"), ExtResource("3_0dgd2"), ExtResource("4_xc72h"), ExtResource("5_n6ajk"), ExtResource("6_gwxhi"), ExtResource("7_d6wtl"), ExtResource("8_s8qpb"), ExtResource("9_8tkr1")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["inimigo"]]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_rmr57")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.666673, 2.10584e-06)
+position = Vector2(0.5000007, 0.99999905)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_61lki")
 

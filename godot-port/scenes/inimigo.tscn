@@ -1,6 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvsk5lrom1bbw"]
+[gd_scene load_steps=11 format=3 uid="uid://bvsk5lrom1bbw"]
 
 [ext_resource type="Script" uid="uid://c8g8c8ogtjbjt" path="res://scripts/inimigo.gd" id="1_pt50e"]
+[ext_resource type="Texture2D" uid="uid://dsdv11yx885aj" path="res://images/enemies/enemy-1.png" id="2_rmr57"]
+[ext_resource type="Texture2D" uid="uid://bkdl752sap1ue" path="res://images/enemies/enemy-2.png" id="3_0dgd2"]
+[ext_resource type="Texture2D" uid="uid://f71awyaht301" path="res://images/enemies/enemy-3.png" id="4_xc72h"]
+[ext_resource type="Texture2D" uid="uid://wxei8ocmjq0k" path="res://images/enemies/enemy-4.png" id="5_n6ajk"]
+[ext_resource type="Texture2D" uid="uid://b44t7oiyuhkp8" path="res://images/enemies/enemy-5.png" id="6_gwxhi"]
+[ext_resource type="Texture2D" uid="uid://bfelqyh78phx1" path="res://images/enemies/enemy-6.png" id="7_d6wtl"]
+[ext_resource type="Texture2D" uid="uid://ci5sg4ar8km34" path="res://images/enemies/enemy-7.png" id="8_s8qpb"]
+[ext_resource type="Texture2D" uid="uid://bak0pltcvsibp" path="res://images/enemies/enemy-8.png" id="9_8tkr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_61lki"]
 size = Vector2(199.99998, 276.66663)
@@ -9,8 +17,9 @@ size = Vector2(199.99998, 276.66663)
 rotation = 1.5707964
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_pt50e")
+sprites = Array[Texture2D]([ExtResource("2_rmr57"), ExtResource("3_0dgd2"), ExtResource("4_xc72h"), ExtResource("5_n6ajk"), ExtResource("6_gwxhi"), ExtResource("7_d6wtl"), ExtResource("8_s8qpb"), ExtResource("9_8tkr1")])
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["inimigo"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.666673, 2.10584e-06)

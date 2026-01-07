@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BalaBase" load_steps=3 format=3 uid="uid://bm6w4bw1nnuu4"]
+
+[ext_resource type="Script" uid="uid://tr7vaev0126j" path="res://resources/scripts/bala_base.gd" id="1_sqddj"]
+[ext_resource type="Texture2D" uid="uid://ccbxqmk73lrxa" path="res://images/bullets/bullet-shotgun.png" id="2_sqddj"]
+
+[resource]
+script = ExtResource("1_sqddj")
+dano = 2
+sprite = ExtResource("2_sqddj")
+metadata/_custom_type_script = "uid://tr7vaev0126j"

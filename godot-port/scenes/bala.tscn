@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://xim5iks56y1p"]
+[gd_scene load_steps=6 format=3 uid="uid://xim5iks56y1p"]
 
 [ext_resource type="Script" uid="uid://cx7eeqtbloorf" path="res://scripts/bala.gd" id="1_27eus"]
 [ext_resource type="Script" uid="uid://tr7vaev0126j" path="res://resources/scripts/bala_base.gd" id="2_uu6iy"]
+[ext_resource type="Texture2D" uid="uid://c4wl7vwr1tuw1" path="res://images/bullets/bullet-default.png" id="3_8mjn7"]
 
 [sub_resource type="Resource" id="Resource_8mjn7"]
 script = ExtResource("2_uu6iy")

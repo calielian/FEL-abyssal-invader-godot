@@ -51,6 +51,7 @@ func _on_cooldown_spawn_timeout() -> void:
 	
 	localizacao_spawn.progress_ratio = randf()
 	novo_inimigo.position = localizacao_spawn.position
+	novo_inimigo.acerto.connect(_on_inimigo_acerto)
 	
 	add_child(novo_inimigo)
 
@@ -61,4 +62,9 @@ func _on_contagem_timeout() -> void:
 func _on_player_vida_perdida() -> void:
 	var explosao: AnimatedSprite2D = cena_explosao.instantiate()
 	explosao.position = $Player.position
+	add_child(explosao)
+
+func _on_inimigo_acerto(posicao: Vector2) -> void:
+	var explosao: AnimatedSprite2D = cena_explosao.instantiate()
+	explosao.position = posicao
 	add_child(explosao)

@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=3 uid="uid://byfg3fy1if51j"]
+
+[ext_resource type="Script" uid="uid://3sf7cf42vv2d" path="res://ui.gd" id="1_27fn8"]
+[ext_resource type="FontFile" uid="uid://1nh04dcnbiw7" path="res://fonts/photonico.ttf" id="1_fyqef"]
+[ext_resource type="Texture2D" uid="uid://vy3t0p5fvwss" path="res://images/heart-full.png" id="3_nltto"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_27fn8")
+
+[node name="Pontuacao" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_nltto")
+
+[node name="Tempo" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -106.0
+offset_top = 35.0
+offset_right = -11.0
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 18
+text = "00:00"
+horizontal_alignment = 2
+justification_flags = 171
+
+[node name="Wave" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 14.0
+offset_top = 35.0
+offset_right = 109.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 18
+text = "Wave 1"
+
+[node name="Separador" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -11.5
+offset_top = 35.0
+offset_right = 11.5
+offset_bottom = 58.0
+grow_horizontal = 2
+text = "•"
+horizontal_alignment = 1
+vertical_alignment = 1

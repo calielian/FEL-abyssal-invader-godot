@@ -11,18 +11,18 @@
 [ext_resource type="Texture2D" uid="uid://ci5sg4ar8km34" path="res://images/enemies/enemy-7.png" id="8_s8qpb"]
 [ext_resource type="Texture2D" uid="uid://bak0pltcvsibp" path="res://images/enemies/enemy-8.png" id="9_8tkr1"]
 
-[sub_resource type="Resource" id="Resource_xc72h"]
+[sub_resource type="Resource" id="Resource_0dgd2"]
 script = ExtResource("2_0dgd2")
+velocidade = 150
 metadata/_custom_type_script = "uid://ceeja5sk6irxf"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_61lki"]
 size = Vector2(56, 73)
 
-[node name="Inimigo" type="RigidBody2D" groups=["inimigo"]]
+[node name="Inimigo" type="Area2D" groups=["inimigo"]]
 rotation = 1.5707964
-gravity_scale = 0.0
 script = ExtResource("1_pt50e")
-stats = SubResource("Resource_xc72h")
+stats = SubResource("Resource_0dgd2")
 sprites = Array[Texture2D]([ExtResource("2_rmr57"), ExtResource("3_0dgd2"), ExtResource("4_xc72h"), ExtResource("5_n6ajk"), ExtResource("6_gwxhi"), ExtResource("7_d6wtl"), ExtResource("8_s8qpb"), ExtResource("9_8tkr1")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["inimigo"]]
@@ -35,5 +35,6 @@ shape = SubResource("RectangleShape2D_61lki")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

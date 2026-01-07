@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://1ieirn4bkmct"]
+[gd_scene load_steps=7 format=3 uid="uid://1ieirn4bkmct"]
 
 [ext_resource type="Script" uid="uid://thhtmbh1umbv" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c2pwtsirbt8oh" path="res://scenes/player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bvsk5lrom1bbw" path="res://scenes/inimigo.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://xim5iks56y1p" path="res://scenes/bala.tscn" id="3_lquwl"]
+
+[sub_resource type="Curve2D" id="Curve2D_lquwl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 800, 0)
+}
+point_count = 2
 
 [node name="Main" type="Node"]
 script = ExtResource("1_h2yge")
@@ -26,6 +32,15 @@ one_shot = true
 [node name="CooldownBlast" type="Timer" parent="."]
 one_shot = true
 
+[node name="CooldownSpawn" type="Timer" parent="."]
+autostart = true
+
+[node name="PathSpawn" type="Path2D" parent="."]
+curve = SubResource("Curve2D_lquwl")
+
+[node name="SpawnLocations" type="PathFollow2D" parent="PathSpawn"]
+
 [connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]
 [connection signal="timeout" from="CooldownShotgun" to="." method="_on_cooldown_shotgun_timeout"]
 [connection signal="timeout" from="CooldownBlast" to="." method="_on_cooldown_blast_timeout"]
+[connection signal="timeout" from="CooldownSpawn" to="." method="_on_cooldown_spawn_timeout"]

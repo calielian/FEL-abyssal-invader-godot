@@ -51,6 +51,7 @@ _data = {
 
 [node name="Player" type="Area2D"]
 rotation = -1.5707964
+monitoring = false
 script = ExtResource("1_g2els")
 stats = SubResource("Resource_dqkch")
 
@@ -71,5 +72,4 @@ libraries = {
 &"": SubResource("AnimationLibrary_dqkch")
 }
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="FrameInvencibilidade" to="." method="_on_frame_invencibilidade_timeout"]

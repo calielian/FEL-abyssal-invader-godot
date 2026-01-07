@@ -13,11 +13,6 @@ func _process(_delta: float) -> void:
 	if stats.perfuracao == 0:
 		queue_free() 
 
-func _on_body_entered(body: Node2D) -> void:
-	if body is Inimigo:
-		body.tomar_dano()
-		stats.perfuracao -= 1
-
 func _on_screen_exited() -> void:
 	queue_free()
 

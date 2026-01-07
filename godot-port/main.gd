@@ -10,6 +10,8 @@ var cooldown_default := false
 var cooldown_shotgun := false
 var cooldown_blast := false
 
+var tempo := 0
+
 func _ready() -> void:
 	recursos_bala = [load("res://resources/bala_base.tres"), load("res://resources/bala_shotgun.tres"), load("res://resources/bala_blast.tres")]
 	$CooldownDefault.wait_time = recursos_bala[0].tempo_espera
@@ -40,3 +42,12 @@ func _on_cooldown_shotgun_timeout() -> void:
 
 func _on_cooldown_blast_timeout() -> void:
 	cooldown_blast = false
+
+func _on_cooldown_spawn_timeout() -> void:
+	var novo_inimigo: Area2D = cena_inimigo.instantiate()
+	var localizacao_spawn = $PathSpawn/SpawnLocations
+	
+	localizacao_spawn.progress_ratio = randf()
+	novo_inimigo.position = localizacao_spawn.position
+	
+	add_child(novo_inimigo)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfx31wsyukp83"]
+
+[ext_resource type="Script" uid="uid://55md44v7f4rl" path="res://scripts/background.gd" id="1_y0upk"]
+[ext_resource type="Texture2D" uid="uid://p8uxl81qftlr" path="res://images/background-deep-ocean.png" id="2_jougr"]
+
+[node name="Background" type="Node2D"]
+script = ExtResource("1_y0upk")
+
+[node name="Cima" type="Sprite2D" parent="."]
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("2_jougr")
+centered = false
+offset = Vector2(-512, -1536)
+
+[node name="Baixo" type="Sprite2D" parent="."]
+scale = Vector2(0.785, 0.785)
+texture = ExtResource("2_jougr")
+centered = false
+offset = Vector2(-512, -1536)

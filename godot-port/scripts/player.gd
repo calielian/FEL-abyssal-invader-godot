@@ -1,9 +1,9 @@
+class_name Player
 extends Area2D
 
-signal retirar_vida(quantidade: int)
+signal game_over
 
-@export var velocidade := 400
-@export var qtd_vida := 3
+@export var stats: Stats
 
 var tamanho_tela: Vector2
 
@@ -17,16 +17,25 @@ func _process(delta: float) -> void:
 	velocidade_vt.x += direcao
 
 	if velocidade_vt.length() > 0:
-		velocidade_vt = velocidade_vt.normalized() * velocidade
+		velocidade_vt = velocidade_vt.normalized() * stats.velocidade
 
 	position += velocidade_vt * delta
 	position = position.clamp(Vector2.ZERO, tamanho_tela)
 
-func _on_body_entered(_body: Node2D) -> void:
-	qtd_vida -= 1
-	retirar_vida.emit(qtd_vida)
+func tomar_dano() -> void:
+	stats.vida -= 1
+
+	if stats.vida == 0:
+		game_over.emit()
+		queue_free()
+
 	$CollisionShape2D.set_deferred("disabled", true)
 	$FrameInvencibilidade.start()
+	
+	for i in randi_range(0, 5):
+		show()
+		await get_tree().create_timer(0.5).timeout
+		hide()
 
 func _on_frame_invencibilidade_timeout() -> void:
 	$CollisionShape2D.disabled = false

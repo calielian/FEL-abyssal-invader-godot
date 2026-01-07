@@ -1,3 +1,4 @@
+class_name Bala
 extends RigidBody2D
 
 signal acerto(dano: int)

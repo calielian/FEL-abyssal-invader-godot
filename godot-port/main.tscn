@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://1ieirn4bkmct"]
+
+[ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node"]
+
+[node name="Background" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(400, 800)

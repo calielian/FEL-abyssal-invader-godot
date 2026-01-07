@@ -16,7 +16,8 @@ func _ready() -> void:
 	recursos_bala = [load("res://resources/bala_base.tres"), load("res://resources/bala_shotgun.tres"), load("res://resources/bala_blast.tres")]
 	$CooldownDefault.wait_time = recursos_bala[0].tempo_espera
 	$CooldownShotgun.wait_time = recursos_bala[1].tempo_espera
-	$CooldownBlast.wait_time = recursos_bala[2].tempo_espera 
+	$CooldownBlast.wait_time = recursos_bala[2].tempo_espera
+	novo_jogo()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -31,6 +32,7 @@ func _process(_delta: float) -> void:
 			add_child(nova_bala)
 
 func novo_jogo():
+	$UI.desenhar_vidas(3)
 	$Player.restart()
 	get_tree().call_group("inimigo", "queue_free")
 

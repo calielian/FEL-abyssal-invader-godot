@@ -2,6 +2,7 @@ class_name Player
 extends Area2D
 
 signal game_over
+signal vida_perdida
 
 @export var stats: Stats
 var stats_backup: Stats
@@ -25,12 +26,14 @@ func _process(delta: float) -> void:
 	position = position.clamp(Vector2.ZERO, tamanho_tela)
 
 func tomar_dano() -> void:
+	vida_perdida.emit()
 	stats.vida -= 1
 
 	if stats.vida == 0:
 		game_over.emit()
 		hide()
 		$CollisionShape2D.set_deferred("disabled", true)
+		return
 
 	$CollisionShape2D.set_deferred("disabled", true)
 	$FrameInvencibilidade.start()

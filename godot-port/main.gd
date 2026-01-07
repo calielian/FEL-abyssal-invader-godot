@@ -51,3 +51,7 @@ func _on_cooldown_spawn_timeout() -> void:
 	novo_inimigo.position = localizacao_spawn.position
 	
 	add_child(novo_inimigo)
+
+func _on_contagem_timeout() -> void:
+	tempo += 1
+	$UI.alterar_tempo(tempo)

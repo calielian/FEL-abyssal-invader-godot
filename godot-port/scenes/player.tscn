@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2pwtsirbt8oh"]
+[gd_scene load_steps=9 format=3 uid="uid://c2pwtsirbt8oh"]
 
 [ext_resource type="Script" uid="uid://d3qaasymecgiy" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cl53axpfy1v6u" path="res://images/player/player-idle-2.png" id="2_g2els"]
@@ -11,6 +11,43 @@ metadata/_custom_type_script = "uid://ceeja5sk6irxf"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(58, 54)
+
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "piscar"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.65, 1.75, 1.85, 1.95),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqkch"]
+_data = {
+&"RESET": SubResource("Animation_dqkch"),
+&"piscar": SubResource("Animation_qhqgy")
+}
 
 [node name="Player" type="Area2D"]
 rotation = -1.5707964
@@ -28,6 +65,11 @@ shape = SubResource("RectangleShape2D_dqkch")
 [node name="FrameInvencibilidade" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dqkch")
+}
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="FrameInvencibilidade" to="." method="_on_frame_invencibilidade_timeout"]

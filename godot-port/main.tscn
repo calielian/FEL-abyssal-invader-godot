@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://1ieirn4bkmct"]
+[gd_scene load_steps=3 format=3 uid="uid://1ieirn4bkmct"]
 
 [ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://c2pwtsirbt8oh" path="res://scenes/player.tscn" id="2_0xm2m"]
 
 [node name="Main" type="Node"]
 
 [node name="Background" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(400, 800)
+
+[node name="Player" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(400, 738)

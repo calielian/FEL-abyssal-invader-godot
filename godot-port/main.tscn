@@ -38,7 +38,6 @@ one_shot = true
 one_shot = true
 
 [node name="CooldownSpawn" type="Timer" parent="."]
-autostart = true
 
 [node name="PathSpawn" type="Path2D" parent="."]
 curve = SubResource("Curve2D_lquwl")

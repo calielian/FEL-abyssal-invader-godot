@@ -12,6 +12,7 @@ var tamanho_tela: Vector2
 func _ready() -> void:
 	tamanho_tela = get_viewport_rect().size
 	stats_backup = stats.clonar()
+	hide()
 
 func _process(delta: float) -> void:
 	var velocidade_vt := Vector2.ZERO
@@ -45,3 +46,4 @@ func _on_frame_invencibilidade_timeout() -> void:
 func restart():
 	position.x = tamanho_tela.x / 2
 	stats = stats_backup.clonar()
+	show()

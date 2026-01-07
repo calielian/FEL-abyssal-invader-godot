@@ -18,7 +18,6 @@ func _ready() -> void:
 	$CooldownDefault.wait_time = recursos_bala[0].tempo_espera
 	$CooldownShotgun.wait_time = recursos_bala[1].tempo_espera
 	$CooldownBlast.wait_time = recursos_bala[2].tempo_espera
-	novo_jogo()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("atirar"):
@@ -32,8 +31,9 @@ func _process(_delta: float) -> void:
 			add_child(nova_bala)
 
 func novo_jogo():
-	$UI.desenhar_vidas(3)
 	$Player.restart()
+	$UI.desenhar_vidas($Player.stats.vida)
+	$CooldownSpawn.start()
 	get_tree().call_group("inimigo", "queue_free")
 
 func _on_cooldown_default_timeout() -> void:

@@ -5,6 +5,8 @@ extends CanvasLayer
 
 func _ready() -> void:
 	vida_perdida.texture = load("res://images/heart-empty.png")
+	for item in $Jogo.get_children():
+		item.hide()
 
 func alterar_tempo(tempo: int) -> void:
 	if tempo < 60:
@@ -44,3 +46,6 @@ func desenhar_vidas(qtd: int) -> void:
 		vidas.push_back(coracao)
 		anterior = coracao
 		add_child(coracao)
+
+func main_menu() -> void:
+	pass

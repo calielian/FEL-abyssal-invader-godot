@@ -7,6 +7,13 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_27fn8")
 
+[node name="MainMenu" type="Node" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="MainMenu"]
+offset_right = 800.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 0.5294118)
+
 [node name="Jogo" type="Node" parent="."]
 
 [node name="Pontuacao" type="Label" parent="Jogo"]

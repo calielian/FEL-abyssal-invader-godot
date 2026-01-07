@@ -2,6 +2,7 @@ extends Node
 
 @export var cena_inimigo: PackedScene
 @export var cena_bala: PackedScene
+@export var cena_explosao: PackedScene
 
 var tipo_bala_selecionado := "Default"
 var recursos_bala: Array[BalaBase]
@@ -19,7 +20,6 @@ func _ready() -> void:
 	$CooldownBlast.wait_time = recursos_bala[2].tempo_espera
 	novo_jogo()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("atirar"):
 		if not cooldown_default: 
@@ -57,3 +57,8 @@ func _on_cooldown_spawn_timeout() -> void:
 func _on_contagem_timeout() -> void:
 	tempo += 1
 	$UI.alterar_tempo(tempo)
+
+func _on_player_vida_perdida() -> void:
+	var explosao: AnimatedSprite2D = cena_explosao.instantiate()
+	explosao.position = $Player.position
+	add_child(explosao)

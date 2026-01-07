@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://1ieirn4bkmct"]
+[gd_scene load_steps=9 format=3 uid="uid://1ieirn4bkmct"]
 
 [ext_resource type="Script" uid="uid://thhtmbh1umbv" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bvsk5lrom1bbw" path="res://scenes/inimigo.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://xim5iks56y1p" path="res://scenes/bala.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byfg3fy1if51j" path="res://ui.tscn" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://d3hw38tj8t6j6" path="res://scenes/explosao.tscn" id="4_272bh"]
 
 [sub_resource type="Curve2D" id="Curve2D_lquwl"]
 _data = {
@@ -17,6 +18,7 @@ point_count = 2
 script = ExtResource("1_h2yge")
 cena_inimigo = ExtResource("2_1bvp3")
 cena_bala = ExtResource("3_lquwl")
+cena_explosao = ExtResource("4_272bh")
 
 [node name="UI" parent="." instance=ExtResource("4_7mycd")]
 
@@ -46,6 +48,7 @@ curve = SubResource("Curve2D_lquwl")
 [node name="Contagem" type="Timer" parent="."]
 autostart = true
 
+[connection signal="vida_perdida" from="Player" to="." method="_on_player_vida_perdida"]
 [connection signal="vida_perdida" from="Player" to="UI" method="_on_player_vida_perdida"]
 [connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]
 [connection signal="timeout" from="CooldownShotgun" to="." method="_on_cooldown_shotgun_timeout"]

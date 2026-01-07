@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cl53axpfy1v6u" path="res://images/player/player-idle-2.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://ceeja5sk6irxf" path="res://resources/scripts/stats.gd" id="2_qhqgy"]
 
-[sub_resource type="Resource" id="Resource_dqkch"]
+[sub_resource type="Resource" id="Resource_qlg0r"]
 script = ExtResource("2_qhqgy")
 vida = 3
 metadata/_custom_type_script = "uid://ceeja5sk6irxf"
@@ -53,7 +53,7 @@ _data = {
 rotation = -1.5707964
 monitoring = false
 script = ExtResource("1_g2els")
-stats = SubResource("Resource_dqkch")
+stats = SubResource("Resource_qlg0r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -2)

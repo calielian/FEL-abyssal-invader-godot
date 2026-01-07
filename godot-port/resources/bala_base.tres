@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="BalaBase" load_steps=2 format=3 uid="uid://c7io8px15d37q"]
+[gd_resource type="Resource" script_class="BalaBase" load_steps=3 format=3 uid="uid://c7io8px15d37q"]
 
 [ext_resource type="Script" uid="uid://tr7vaev0126j" path="res://resources/scripts/bala_base.gd" id="1_ahnm1"]
+[ext_resource type="Texture2D" uid="uid://c4wl7vwr1tuw1" path="res://images/bullets/bullet-default.png" id="2_542dy"]
 
 [resource]
 script = ExtResource("1_ahnm1")
+tipo_bala = "Default"
+escala_textura = 0.13
+escala_hitbox = 0.5
 metadata/_custom_type_script = "uid://tr7vaev0126j"

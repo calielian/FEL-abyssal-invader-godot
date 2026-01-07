@@ -1,27 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://xim5iks56y1p"]
+[gd_scene load_steps=5 format=3 uid="uid://xim5iks56y1p"]
 
 [ext_resource type="Script" uid="uid://cx7eeqtbloorf" path="res://scripts/bala.gd" id="1_27eus"]
-[ext_resource type="Script" uid="uid://tr7vaev0126j" path="res://resources/scripts/bala_base.gd" id="2_uu6iy"]
-[ext_resource type="Texture2D" uid="uid://c4wl7vwr1tuw1" path="res://images/bullets/bullet-default.png" id="3_8mjn7"]
-
-[sub_resource type="Resource" id="Resource_8mjn7"]
-script = ExtResource("2_uu6iy")
-metadata/_custom_type_script = "uid://tr7vaev0126j"
+[ext_resource type="Resource" uid="uid://c7io8px15d37q" path="res://resources/bala_base.tres" id="2_uu6iy"]
+[ext_resource type="Texture2D" uid="uid://ccbxqmk73lrxa" path="res://images/bullets/bullet-shotgun.png" id="3_t0bj5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uu6iy"]
 radius = 23.0
 height = 116.0
 
 [node name="Bala" type="RigidBody2D" groups=["bala"]]
+gravity_scale = 0.0
 script = ExtResource("1_27eus")
-stats = SubResource("Resource_8mjn7")
+stats = ExtResource("2_uu6iy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5707964
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("3_t0bj5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11)
+scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_uu6iy")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

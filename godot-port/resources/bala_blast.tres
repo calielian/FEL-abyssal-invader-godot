@@ -5,8 +5,12 @@
 
 [resource]
 script = ExtResource("1_8la3k")
+tipo_bala = "Blast"
 dano = 5
 perfuracao = 5
-velocidade = 200
+velocidade = 850
+tempo_espera = 5.0
+escala_textura = 0.25
+escala_hitbox = 1.0
 sprite = ExtResource("2_8la3k")
 metadata/_custom_type_script = "uid://tr7vaev0126j"

@@ -5,6 +5,10 @@
 
 [resource]
 script = ExtResource("1_sqddj")
+tipo_bala = "Shotgun"
 dano = 2
+tempo_espera = 3.0
+escala_textura = 0.13
+escala_hitbox = 0.5
 sprite = ExtResource("2_sqddj")
 metadata/_custom_type_script = "uid://tr7vaev0126j"

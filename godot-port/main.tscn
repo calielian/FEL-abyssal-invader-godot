@@ -1,12 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://1ieirn4bkmct"]
+[gd_scene load_steps=6 format=3 uid="uid://1ieirn4bkmct"]
 
+[ext_resource type="Script" uid="uid://thhtmbh1umbv" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://c2pwtsirbt8oh" path="res://scenes/player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bvsk5lrom1bbw" path="res://scenes/inimigo.tscn" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://xim5iks56y1p" path="res://scenes/bala.tscn" id="3_lquwl"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_h2yge")
+cena_inimigo = ExtResource("2_1bvp3")
+cena_bala = ExtResource("3_lquwl")
 
 [node name="Background" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(400, 800)
 
 [node name="Player" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(400, 738)
+
+[node name="CooldownDefault" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownShotgun" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownBlast" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]
+[connection signal="timeout" from="CooldownShotgun" to="." method="_on_cooldown_shotgun_timeout"]
+[connection signal="timeout" from="CooldownBlast" to="." method="_on_cooldown_blast_timeout"]

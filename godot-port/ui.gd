@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var vidas: Array[Sprite2D] = [$Coracao]
+@onready var vidas: Array[Sprite2D] = [$Jogo/Coracao]
 @onready var vida_perdida := Sprite2D.new()
 
 func _ready() -> void:
@@ -8,12 +8,12 @@ func _ready() -> void:
 
 func alterar_tempo(tempo: int) -> void:
 	if tempo < 60:
-		$Tempo.text = "00:" + formatar(tempo)
+		$Jogo/Tempo.text = "00:" + formatar(tempo)
 	else:
 		@warning_ignore("integer_division")
 		var minuto := tempo / 60
 		while tempo >= 60: tempo -= 60
-		$Tempo.text = formatar(minuto) + ":" + formatar(tempo)
+		$Jogo/Tempo.text = formatar(minuto) + ":" + formatar(tempo)
 
 func formatar(tempo: int) -> String:
 	if tempo < 10:
@@ -30,7 +30,7 @@ func _on_player_vida_perdida() -> void:
 			break
 		i -= 1
 
-func desenhar_vidas(qtd: int):
+func desenhar_vidas(qtd: int) -> void:
 	var anterior: Sprite2D = vidas[0]
 	for i in range(1, qtd):
 		print("Desenhando vida " + str(i))

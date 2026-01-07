@@ -7,7 +7,9 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_27fn8")
 
-[node name="Pontuacao" type="Label" parent="."]
+[node name="Jogo" type="Node" parent="."]
+
+[node name="Pontuacao" type="Label" parent="Jogo"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -20,12 +22,12 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 
-[node name="Coracao" type="Sprite2D" parent="."]
+[node name="Coracao" type="Sprite2D" parent="Jogo"]
 position = Vector2(20, 20)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_nltto")
 
-[node name="Tempo" type="Label" parent="."]
+[node name="Tempo" type="Label" parent="Jogo"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -41,7 +43,7 @@ text = "00:00"
 horizontal_alignment = 2
 justification_flags = 171
 
-[node name="Wave" type="Label" parent="."]
+[node name="Wave" type="Label" parent="Jogo"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -54,7 +56,7 @@ theme_override_fonts/font = ExtResource("1_fyqef")
 theme_override_font_sizes/font_size = 18
 text = "Wave 1"
 
-[node name="Separador" type="Label" parent="."]
+[node name="Separador" type="Label" parent="Jogo"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

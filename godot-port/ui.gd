@@ -3,8 +3,27 @@ extends CanvasLayer
 @onready var vidas: Array[Sprite2D] = [$Jogo/Coracao]
 @onready var vida_perdida := Sprite2D.new()
 
+signal iniciar_jogo
+
+var sair := false
+
 func _ready() -> void:
 	vida_perdida.texture = load("res://images/heart-empty.png")
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("alterar_opcao"):
+		if sair:
+			$MainMenu/Iniciar.grab_focus()
+			print("iniciar")
+			sair = false
+		else:
+			$MainMenu/Sair.grab_focus()
+			print("sair")
+			sair = true
+	
+	if Input.is_action_just_pressed("selecionar_opcao"):
+		if not sair: _on_iniciar_pressed()
+		else: _on_sair_pressed()
 
 func alterar_tempo(tempo: int) -> void:
 	if tempo < 60:
@@ -45,16 +64,21 @@ func desenhar_vidas(qtd: int) -> void:
 		anterior = coracao
 		add_child(coracao)
 
-func main_menu() -> void:
-	pass
-
-func trocar_visibilidade_jogo() -> void:
-	for node in $Jogo.get_children():
+func trocar_visibilidade(node_mestre: Node) -> void:
+	for node in node_mestre.get_children():
 		node.visible = not node.visible
-
 
 func _on_iniciar_mouse_entered() -> void:
 	$MainMenu/OpcaoSelecionada.position = $MainMenu/MarcadorIniciar.position
 
 func _on_sair_mouse_entered() -> void:
 	$MainMenu/OpcaoSelecionada.position = $MainMenu/MarcadorSair.position
+
+func _on_iniciar_pressed() -> void:
+	iniciar_jogo.emit()
+	trocar_visibilidade($MainMenu)
+	trocar_visibilidade($Jogo)
+	set_process(false)
+
+func _on_sair_pressed() -> void:
+	get_tree().quit()

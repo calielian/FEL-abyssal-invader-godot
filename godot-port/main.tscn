@@ -47,6 +47,7 @@ curve = SubResource("Curve2D_lquwl")
 [node name="Contagem" type="Timer" parent="."]
 autostart = true
 
+[connection signal="iniciar_jogo" from="UI" to="." method="novo_jogo"]
 [connection signal="vida_perdida" from="Player" to="." method="_on_player_vida_perdida"]
 [connection signal="vida_perdida" from="Player" to="UI" method="_on_player_vida_perdida"]
 [connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]

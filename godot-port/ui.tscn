@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://byfg3fy1if51j"]
+[gd_scene load_steps=12 format=3 uid="uid://byfg3fy1if51j"]
 
 [ext_resource type="Script" uid="uid://3sf7cf42vv2d" path="res://ui.gd" id="1_27fn8"]
 [ext_resource type="FontFile" uid="uid://1nh04dcnbiw7" path="res://fonts/photonico.ttf" id="1_fyqef"]
@@ -11,6 +11,19 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
+draw_center = false
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ok7cu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
 draw_center = false
 corner_radius_top_left = 3
 corner_radius_top_right = 3
@@ -52,6 +65,19 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irxef"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+draw_center = false
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4yjw"]
 content_margin_left = 4.0
@@ -139,6 +165,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_fyqef")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ok7cu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ibotj")
 theme_override_styles/focus = SubResource("StyleBoxFlat_n5ude")
 text = "INICIAR"
@@ -158,6 +185,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_fyqef")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_irxef")
 theme_override_styles/hover = SubResource("StyleBoxFlat_y4yjw")
 theme_override_styles/focus = SubResource("StyleBoxFlat_waa4j")
 text = "SAIR"
@@ -244,5 +272,9 @@ text = "•"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="focus_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]
+[connection signal="pressed" from="MainMenu/Iniciar" to="." method="_on_iniciar_pressed"]
+[connection signal="focus_entered" from="MainMenu/Sair" to="." method="_on_sair_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/Sair" to="." method="_on_sair_mouse_entered"]
+[connection signal="pressed" from="MainMenu/Sair" to="." method="_on_sair_pressed"]

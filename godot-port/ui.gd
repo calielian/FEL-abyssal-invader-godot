@@ -126,9 +126,11 @@ func _on_sair_pause_pressed() -> void:
 
 func _on_voltar_mouse_entered() -> void:
 	$Pause/OpcaoSelecionada.position = $Pause/MarcadorVoltar.position
+	sair = false
 
 func _on_sair_pause_mouse_entered() -> void:
 	$Pause/OpcaoSelecionada.position = $Pause/MarcadorSair.position
+	sair = true
 
 func game_over() -> void:
 	pass

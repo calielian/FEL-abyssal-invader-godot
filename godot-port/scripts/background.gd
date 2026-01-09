@@ -11,3 +11,6 @@ func _process(delta):
 
 	if position.y >= altura_maxima:
 		position.y -= altura_maxima
+
+func alternar_pausado() -> void:
+	set_process(not is_processing())

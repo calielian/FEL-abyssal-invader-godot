@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://1ieirn4bkmct"]
+[gd_scene load_steps=10 format=3 uid="uid://1ieirn4bkmct"]
 
 [ext_resource type="Script" uid="uid://thhtmbh1umbv" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="PackedScene" uid="uid://cfx31wsyukp83" path="res://scenes/background.tscn" id="1_ig7tw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://xim5iks56y1p" path="res://scenes/bala.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://byfg3fy1if51j" path="res://ui.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://d3hw38tj8t6j6" path="res://scenes/explosao.tscn" id="4_272bh"]
+[ext_resource type="Script" uid="uid://b1rf01q6r78uh" path="res://resources/scripts/timer_pausavel.gd" id="8_5vw27"]
 
 [sub_resource type="Curve2D" id="Curve2D_lquwl"]
 _data = {
@@ -30,14 +31,23 @@ position = Vector2(400, 738)
 
 [node name="CooldownDefault" type="Timer" parent="."]
 one_shot = true
+script = ExtResource("8_5vw27")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [node name="CooldownShotgun" type="Timer" parent="."]
 one_shot = true
+script = ExtResource("8_5vw27")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [node name="CooldownBlast" type="Timer" parent="."]
 one_shot = true
+script = ExtResource("8_5vw27")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [node name="CooldownSpawn" type="Timer" parent="."]
+wait_time = 0.5
+script = ExtResource("8_5vw27")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [node name="PathSpawn" type="Path2D" parent="."]
 curve = SubResource("Curve2D_lquwl")
@@ -45,9 +55,15 @@ curve = SubResource("Curve2D_lquwl")
 [node name="SpawnLocations" type="PathFollow2D" parent="PathSpawn"]
 
 [node name="Contagem" type="Timer" parent="."]
-autostart = true
+script = ExtResource("8_5vw27")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [connection signal="iniciar_jogo" from="UI" to="." method="novo_jogo"]
+[connection signal="pausado" from="UI" to="Background" method="alternar_pausado"]
+[connection signal="pausado" from="UI" to="Player" method="alternar_pause"]
+[connection signal="retomar" from="UI" to="." method="_on_ui_retomar"]
+[connection signal="retomar" from="UI" to="Background" method="alternar_pausado"]
+[connection signal="retomar" from="UI" to="Player" method="alternar_pause"]
 [connection signal="vida_perdida" from="Player" to="." method="_on_player_vida_perdida"]
 [connection signal="vida_perdida" from="Player" to="UI" method="_on_player_vida_perdida"]
 [connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]

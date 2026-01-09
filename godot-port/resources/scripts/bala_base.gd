@@ -9,3 +9,16 @@ extends Resource
 @export var escala_textura := 0.13
 @export var escala_hitbox := 0.5
 @export var sprite: Texture2D = preload("res://images/bullets/bullet-default.png")
+
+func clonar() -> BalaBase:
+	var novo := BalaBase.new()
+
+	novo.dano = self.dano
+	novo.perfuracao = self.perfuracao
+	novo.velocidade = self.velocidade
+	novo.tempo_espera = self.tempo_espera
+	novo.escala_textura = self.escala_textura
+	novo.escala_hitbox = self.escala_hitbox
+	novo.sprite = self.sprite
+	
+	return novo

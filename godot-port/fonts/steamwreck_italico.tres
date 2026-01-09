@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://lxrc8bpk2a1f"]
+
+[ext_resource type="FontFile" uid="uid://d4f583fuh7st8" path="res://fonts/steamwreck.ttf" id="1_cjdxv"]
+
+[resource]
+base_font = ExtResource("1_cjdxv")
+variation_transform = Transform2D(1, 0.2, 0, 1, 0, 0)

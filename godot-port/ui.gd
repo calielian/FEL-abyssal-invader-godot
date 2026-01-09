@@ -4,26 +4,36 @@ extends CanvasLayer
 @onready var vida_perdida := Sprite2D.new()
 
 signal iniciar_jogo
+signal retomar
+signal pausado
 
 var sair := false
+var continuar_butao: Button
+var sair_butao: Button
+
+const CONFIG := "user://score.cfg"
+
+var score := 0
 
 func _ready() -> void:
 	vida_perdida.texture = load("res://images/heart-empty.png")
+	continuar_butao = $MainMenu/Iniciar
+	sair_butao = $MainMenu/Sair
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("alterar_opcao"):
 		if sair:
-			$MainMenu/Iniciar.grab_focus()
+			continuar_butao.grab_focus()
 			print("iniciar")
 			sair = false
 		else:
-			$MainMenu/Sair.grab_focus()
+			sair_butao.grab_focus()
 			print("sair")
 			sair = true
 	
 	if Input.is_action_just_pressed("selecionar_opcao"):
-		if not sair: _on_iniciar_pressed()
-		else: _on_sair_pressed()
+		if not sair: continuar_butao.pressed.emit()
+		else: sair_butao.pressed.emit()
 
 func alterar_tempo(tempo: int) -> void:
 	if tempo < 60:
@@ -58,11 +68,15 @@ func desenhar_vidas(qtd: int) -> void:
 		coracao.texture = anterior.texture
 		coracao.scale = anterior.scale
 		coracao.position.y = anterior.position.y
-		coracao.position.x = anterior.position.x + (anterior.get_rect().size.x * anterior.scale.x) * 1 + 5
+		coracao.position.x = anterior.position.x + (anterior.get_rect().size.x * anterior.scale.x) + 5
 
 		vidas.push_back(coracao)
+		coracao.visible = false
 		anterior = coracao
-		add_child(coracao)
+		$Jogo.add_child(coracao)
+
+func atualizar_pontuacao(pontuacao: int) -> void:
+	$Jogo/Pontuacao.text = str(pontuacao)
 
 func trocar_visibilidade(node_mestre: Node) -> void:
 	for node in node_mestre.get_children():
@@ -82,3 +96,38 @@ func _on_iniciar_pressed() -> void:
 
 func _on_sair_pressed() -> void:
 	get_tree().quit()
+
+func pause(high_score: int) -> void:
+	pausado.emit()
+	trocar_visibilidade($Jogo)
+	trocar_visibilidade($Pause)
+	
+	score = high_score
+	
+	$Pause/HighScore.text = "[i]High Score: " + str(score) + "[/i]"
+	
+	continuar_butao = $Pause/Voltar
+	sair_butao = $Pause/Sair
+	
+	set_process(true)
+
+func _on_voltar_pressed() -> void:
+	trocar_visibilidade($Pause)
+	trocar_visibilidade($Jogo)
+	retomar.emit()
+
+	set_process(false)
+
+func _on_sair_pause_pressed() -> void:
+	var config := ConfigFile.new()
+	config.load(CONFIG)
+	config.set_value("player", "high_score", score)
+	config.save(CONFIG)
+
+	get_tree().quit()
+
+func _on_voltar_mouse_entered() -> void:
+	$Pause/OpcaoSelecionada.position = $Pause/MarcadorVoltar.position
+
+func _on_sair_pause_mouse_entered() -> void:
+	$Pause/OpcaoSelecionada.position = $Pause/MarcadorSair.position

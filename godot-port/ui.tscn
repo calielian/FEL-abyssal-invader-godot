@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://byfg3fy1if51j"]
+[gd_scene load_steps=14 format=3 uid="uid://byfg3fy1if51j"]
 
 [ext_resource type="Script" uid="uid://3sf7cf42vv2d" path="res://ui.gd" id="1_27fn8"]
 [ext_resource type="FontFile" uid="uid://1nh04dcnbiw7" path="res://fonts/photonico.ttf" id="1_fyqef"]
 [ext_resource type="Texture2D" uid="uid://xxesbndeqmrx" path="res://images/title-complete.png" id="2_nltto"]
 [ext_resource type="Texture2D" uid="uid://vy3t0p5fvwss" path="res://images/heart-full.png" id="3_nltto"]
+[ext_resource type="FontFile" uid="uid://d4f583fuh7st8" path="res://fonts/steamwreck.ttf" id="4_ibotj"]
+[ext_resource type="FontVariation" uid="uid://lxrc8bpk2a1f" path="res://fonts/steamwreck_italico.tres" id="5_n5ude"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltto"]
 content_margin_left = 4.0
@@ -205,6 +207,110 @@ theme_override_fonts/font = ExtResource("1_fyqef")
 theme_override_font_sizes/font_size = 32
 text = ">         <"
 
+[node name="Pause" type="Node" parent="."]
+
+[node name="Background" type="ColorRect" parent="Pause"]
+visible = false
+offset_right = 800.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 0.5294118)
+
+[node name="JogoPausado" type="Label" parent="Pause"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -40.5
+offset_right = 111.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ibotj")
+theme_override_font_sizes/font_size = 64
+text = "Jogo Pausado"
+
+[node name="HighScore" type="RichTextLabel" parent="Pause"]
+visible = false
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -61.0
+offset_right = 800.0
+offset_bottom = -20.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.72156864, 0.5254902, 0.043137256, 1)
+theme_override_fonts/italics_font = ExtResource("5_n5ude")
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[i]High Score: 0[/i]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Voltar" type="Button" parent="Pause"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = 38.0
+offset_right = 47.5
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ok7cu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ibotj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_n5ude")
+text = "VOLTAR"
+
+[node name="Sair" type="Button" parent="Pause"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = 83.0
+offset_right = 47.5
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_irxef")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y4yjw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_waa4j")
+text = "SAIR"
+
+[node name="MarcadorVoltar" type="Marker2D" parent="Pause"]
+visible = false
+position = Vector2(341, 456)
+
+[node name="MarcadorSair" type="Marker2D" parent="Pause"]
+visible = false
+position = Vector2(341, 501)
+
+[node name="OpcaoSelecionada" type="Label" parent="Pause"]
+visible = false
+offset_left = 341.0
+offset_top = 456.0
+offset_right = 460.0
+offset_bottom = 477.0
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 16
+text = ">          <"
+
 [node name="Jogo" type="Node" parent="."]
 
 [node name="Pontuacao" type="Label" parent="Jogo"]
@@ -278,3 +384,9 @@ vertical_alignment = 1
 [connection signal="focus_entered" from="MainMenu/Sair" to="." method="_on_sair_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/Sair" to="." method="_on_sair_mouse_entered"]
 [connection signal="pressed" from="MainMenu/Sair" to="." method="_on_sair_pressed"]
+[connection signal="focus_entered" from="Pause/Voltar" to="." method="_on_voltar_mouse_entered"]
+[connection signal="mouse_entered" from="Pause/Voltar" to="." method="_on_voltar_mouse_entered"]
+[connection signal="pressed" from="Pause/Voltar" to="." method="_on_voltar_pressed"]
+[connection signal="focus_entered" from="Pause/Sair" to="." method="_on_sair_pause_mouse_entered"]
+[connection signal="mouse_entered" from="Pause/Sair" to="." method="_on_sair_pause_mouse_entered"]
+[connection signal="pressed" from="Pause/Sair" to="." method="_on_sair_pause_pressed"]

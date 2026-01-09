@@ -47,3 +47,6 @@ func restart():
 	position.x = tamanho_tela.x / 2
 	stats = stats_backup.clonar()
 	show()
+
+func alternar_pause() -> void:
+	set_process(not is_processing())

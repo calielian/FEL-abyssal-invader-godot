@@ -1,6 +1,7 @@
 extends Area2D
 
 signal acerto(posicao: Vector2)
+signal inimigo_morto()
 
 @export var stats: Stats
 @export var sprites: Array[Texture2D]
@@ -19,12 +20,14 @@ func _on_screen_exited() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body is Bala:
 		tomar_dano()
+		body.perfurar()
 		acerto.emit(body.position)
 
 func tomar_dano():
 	self.local_stats.vida -= 1
 	
-	if local_stats.vida == 0:
+	if self.local_stats.vida == 0:
+		inimigo_morto.emit()
 		queue_free()
 
 func set_vida(nova_vida: int):
@@ -33,3 +36,6 @@ func set_vida(nova_vida: int):
 func _on_area_entered(area: Area2D) -> void:
 	if area is Player:
 		area.tomar_dano()
+
+func alternar_pause() -> void:
+	set_process(not is_processing())

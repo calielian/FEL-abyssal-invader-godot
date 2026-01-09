@@ -13,7 +13,7 @@ func _ready() -> void:
 	self.local_perfuracao = stats.perfuracao
 
 func _process(_delta: float) -> void:
-	if stats.perfuracao == 0:
+	if self.local_perfuracao == 0:
 		queue_free() 
 
 func _on_screen_exited() -> void:

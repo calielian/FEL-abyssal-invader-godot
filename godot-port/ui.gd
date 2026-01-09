@@ -24,13 +24,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("alterar_opcao"):
 		if sair:
 			continuar_butao.grab_focus()
-			print("iniciar")
-			sair = false
 		else:
 			sair_butao.grab_focus()
-			print("sair")
-			sair = true
-	
+
 	if Input.is_action_just_pressed("selecionar_opcao"):
 		if not sair: continuar_butao.pressed.emit()
 		else: sair_butao.pressed.emit()
@@ -84,9 +80,11 @@ func trocar_visibilidade(node_mestre: Node) -> void:
 
 func _on_iniciar_mouse_entered() -> void:
 	$MainMenu/OpcaoSelecionada.position = $MainMenu/MarcadorIniciar.position
+	sair = false
 
 func _on_sair_mouse_entered() -> void:
 	$MainMenu/OpcaoSelecionada.position = $MainMenu/MarcadorSair.position
+	sair = true
 
 func _on_iniciar_pressed() -> void:
 	iniciar_jogo.emit()
@@ -131,3 +129,6 @@ func _on_voltar_mouse_entered() -> void:
 
 func _on_sair_pause_mouse_entered() -> void:
 	$Pause/OpcaoSelecionada.position = $Pause/MarcadorSair.position
+
+func game_over() -> void:
+	pass

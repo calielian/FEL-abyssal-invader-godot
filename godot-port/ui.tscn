@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byfg3fy1if51j"]
+[gd_scene load_steps=18 format=3 uid="uid://byfg3fy1if51j"]
 
 [ext_resource type="Script" uid="uid://3sf7cf42vv2d" path="res://ui.gd" id="1_27fn8"]
 [ext_resource type="FontFile" uid="uid://1nh04dcnbiw7" path="res://fonts/photonico.ttf" id="1_fyqef"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://vy3t0p5fvwss" path="res://images/heart-full.png" id="3_nltto"]
 [ext_resource type="FontFile" uid="uid://d4f583fuh7st8" path="res://fonts/steamwreck.ttf" id="4_ibotj"]
 [ext_resource type="FontVariation" uid="uid://lxrc8bpk2a1f" path="res://fonts/steamwreck_italico.tres" id="5_n5ude"]
+[ext_resource type="Texture2D" uid="uid://c4wl7vwr1tuw1" path="res://images/bullets/bullet-default.png" id="7_ok7cu"]
+[ext_resource type="Texture2D" uid="uid://ccbxqmk73lrxa" path="res://images/bullets/bullet-shotgun.png" id="8_irxef"]
+[ext_resource type="Texture2D" uid="uid://cqrwbkr0084cb" path="res://images/bullets/bullet-blast.png" id="9_e2l4f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltto"]
 content_margin_left = 4.0
@@ -115,6 +118,24 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2l4f"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.72156864, 0.5254902, 0.043137256, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_27fn8")
@@ -491,6 +512,50 @@ grow_horizontal = 2
 text = "•"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BalaSelecionada" type="Panel" parent="Jogo"]
+visible = false
+offset_left = 658.0
+offset_top = 633.0
+offset_right = 794.0
+offset_bottom = 686.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2l4f")
+
+[node name="BalaNormal" type="Sprite2D" parent="Jogo"]
+visible = false
+position = Vector2(660.99994, 635.99994)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_ok7cu")
+centered = false
+
+[node name="MarcadorBalaNormal" type="Marker2D" parent="Jogo"]
+visible = false
+position = Vector2(658.00006, 633.00006)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="BalaShotgun" type="Sprite2D" parent="Jogo"]
+visible = false
+position = Vector2(669.99994, 691.99994)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("8_irxef")
+centered = false
+
+[node name="MarcadorBalaShotgun" type="Marker2D" parent="Jogo"]
+visible = false
+position = Vector2(658.00006, 689.00006)
+scale = Vector2(0.99999994, 0.99999994)
+
+[node name="BalaBlast" type="Sprite2D" parent="Jogo"]
+visible = false
+position = Vector2(672.00006, 747.00006)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("9_e2l4f")
+centered = false
+
+[node name="MarcadorBalaBlast" type="Marker2D" parent="Jogo"]
+visible = false
+position = Vector2(658.00006, 743.00006)
+scale = Vector2(0.99999994, 0.99999994)
 
 [connection signal="focus_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]

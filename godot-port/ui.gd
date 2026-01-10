@@ -69,7 +69,7 @@ func desenhar_vidas(qtd: int) -> void:
 		coracao.texture = vida_cheia.texture
 		coracao.scale = anterior.scale
 		coracao.position.y = anterior.position.y
-		coracao.position.x = anterior.position.x + (anterior.get_rect().size.x * anterior.scale.x) + 5
+		coracao.position.x = anterior.position.x + (anterior.get_rect().size.x * anterior.scale.x) + 8
 
 		vidas.push_back(coracao)
 		coracao.visible = true

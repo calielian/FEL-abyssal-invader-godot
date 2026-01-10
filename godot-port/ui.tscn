@@ -464,7 +464,7 @@ horizontal_alignment = 1
 
 [node name="Coracao" type="Sprite2D" parent="Jogo"]
 visible = false
-position = Vector2(20, 20)
+position = Vector2(27, 20)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_nltto")
 
@@ -515,46 +515,50 @@ vertical_alignment = 1
 
 [node name="BalaSelecionada" type="Panel" parent="Jogo"]
 visible = false
-offset_left = 658.0
-offset_top = 633.0
-offset_right = 794.0
-offset_bottom = 686.0
+offset_left = 620.0
+offset_top = 99.65487
+offset_right = 718.65485
+offset_bottom = 152.65488
+rotation = -1.5707964
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2l4f")
 
 [node name="BalaNormal" type="Sprite2D" parent="Jogo"]
 visible = false
-position = Vector2(660.99994, 635.99994)
-scale = Vector2(0.25, 0.25)
+position = Vector2(630, 95)
+rotation = -1.5707964
+scale = Vector2(0.17094819, 0.17094819)
 texture = ExtResource("7_ok7cu")
 centered = false
 
 [node name="MarcadorBalaNormal" type="Marker2D" parent="Jogo"]
 visible = false
-position = Vector2(658.00006, 633.00006)
+position = Vector2(620, 100)
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="BalaShotgun" type="Sprite2D" parent="Jogo"]
 visible = false
-position = Vector2(669.99994, 691.99994)
-scale = Vector2(0.23, 0.23)
+position = Vector2(685.99994, 88)
+rotation = -1.5707964
+scale = Vector2(0.16761146, 0.16761145)
 texture = ExtResource("8_irxef")
 centered = false
 
 [node name="MarcadorBalaShotgun" type="Marker2D" parent="Jogo"]
 visible = false
-position = Vector2(658.00006, 689.00006)
+position = Vector2(676, 100)
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="BalaBlast" type="Sprite2D" parent="Jogo"]
 visible = false
-position = Vector2(672.00006, 747.00006)
-scale = Vector2(0.17, 0.17)
+position = Vector2(738.00006, 89)
+rotation = -1.5707964
+scale = Vector2(0.1493386, 0.1493386)
 texture = ExtResource("9_e2l4f")
 centered = false
 
 [node name="MarcadorBalaBlast" type="Marker2D" parent="Jogo"]
 visible = false
-position = Vector2(658.00006, 743.00006)
+position = Vector2(732, 100)
 scale = Vector2(0.99999994, 0.99999994)
 
 [connection signal="focus_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]

@@ -5,9 +5,13 @@ extends Node
 @export var cena_explosao: PackedScene
 
 @onready var timers: Array[TimerPausavel] = [$CooldownDefault, $CooldownShotgun, $CooldownBlast, $CooldownSpawn, $Contagem]
+@onready var recursos_bala: Dictionary[String, BalaBase] = {
+	"Default" : load("res://resources/bala_base.tres"),
+	"Shotgun" : load("res://resources/bala_shotgun.tres"),
+	"Blast"   : load("res://resources/bala_blast.tres")
+}
 
 var tipo_bala_selecionado := "Default"
-var recursos_bala: Array[BalaBase]
 
 var cooldown_default := false
 var cooldown_shotgun := false
@@ -19,14 +23,14 @@ var high_score := 0
 var iniciado := false
 
 var wave := 1
+var wave_time := 30
 
 const CONFIG := "user://score.cfg"
 
 func _ready() -> void:
-	recursos_bala = [load("res://resources/bala_base.tres"), load("res://resources/bala_shotgun.tres"), load("res://resources/bala_blast.tres")]
-	$CooldownDefault.wait_time = recursos_bala[0].tempo_espera
-	$CooldownShotgun.wait_time = recursos_bala[1].tempo_espera
-	$CooldownBlast.wait_time = recursos_bala[2].tempo_espera
+	$CooldownDefault.wait_time = recursos_bala["Default"].tempo_espera
+	$CooldownShotgun.wait_time = recursos_bala["Shotgun"].tempo_espera
+	$CooldownBlast.wait_time = recursos_bala["Blast"].tempo_espera
 	
 	var config := ConfigFile.new()
 	
@@ -42,7 +46,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("atirar") and iniciado:
 		if not cooldown_default: 
 			var nova_bala: Bala = cena_bala.instantiate()
-			nova_bala.stats = recursos_bala[0]
+			nova_bala.stats = recursos_bala["Default"].clonar()
 			nova_bala.position = $Player.position
 			$CooldownDefault.comecar()
 			cooldown_default = true
@@ -92,6 +96,12 @@ func _on_cooldown_spawn_timeout() -> void:
 
 func _on_contagem_timeout() -> void:
 	tempo += 1
+	wave_time -= 1
+	if wave_time == 0:
+		wave += 1
+		wave_time = 30
+		$UI.alterar_wave(wave)
+
 	$UI.alterar_tempo(tempo)
 
 func _on_player_vida_perdida() -> void:
@@ -115,7 +125,3 @@ func _on_ui_retomar() -> void:
 
 	for timer: TimerPausavel in timers:
 		timer.despausar()
-
-func _on_ui_nova_wave() -> void:
-	wave += 1
-	$UI.alterar_wave(wave)

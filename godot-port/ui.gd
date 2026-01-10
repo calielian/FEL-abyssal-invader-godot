@@ -7,13 +7,12 @@ extends CanvasLayer
 signal iniciar_jogo
 signal retomar
 signal pausado
-signal nova_wave
 
 var sair := false
 var continuar_butao: Button
 var sair_butao: Button
 
-var wave_time := 30
+
 
 const CONFIG := "user://score.cfg"
 
@@ -38,12 +37,6 @@ func _process(_delta: float) -> void:
 		else: sair_butao.pressed.emit()
 
 func alterar_tempo(tempo: int) -> void:
-	wave_time -= 1
-	
-	if wave_time == 0:
-		nova_wave.emit()
-		wave_time = 30
-	
 	if tempo < 60:
 		$Jogo/Tempo.text = "00:" + formatar(tempo)
 	else:

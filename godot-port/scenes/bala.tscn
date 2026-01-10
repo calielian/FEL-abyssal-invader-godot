@@ -7,8 +7,7 @@
 radius = 23.0
 height = 116.0
 
-[node name="Bala" type="RigidBody2D" groups=["bala"]]
-gravity_scale = 0.0
+[node name="Bala" type="Area2D" groups=["bala"]]
 script = ExtResource("1_27eus")
 stats = ExtResource("2_uu6iy")
 
@@ -22,4 +21,5 @@ shape = SubResource("CapsuleShape2D_uu6iy")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

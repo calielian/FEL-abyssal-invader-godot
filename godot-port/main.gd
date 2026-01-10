@@ -50,9 +50,9 @@ func _process(_delta: float) -> void:
 			nova_bala.position = $Player.position
 			$CooldownDefault.comecar()
 			cooldown_default = true
-			$UI.pausado.connect(nova_bala.pausar)
-			$UI.retomar.connect(nova_bala.despausar)
-			$Player.game_over.connect(nova_bala.pausar)
+			$UI.pausado.connect(nova_bala.alternar_pause)
+			$UI.retomar.connect(nova_bala.alternar_pause)
+			$Player.game_over.connect(nova_bala.alternar_pause)
 		
 			add_child(nova_bala)
 	
@@ -82,8 +82,9 @@ func _on_cooldown_blast_timeout() -> void:
 	cooldown_blast = false
 
 func _on_cooldown_spawn_timeout() -> void:
-	var novo_inimigo = cena_inimigo.instantiate()
+	var novo_inimigo: Inimigo = cena_inimigo.instantiate()
 	var localizacao_spawn := $PathSpawn/SpawnLocations
+	var rand := randf()
 	
 	localizacao_spawn.progress_ratio = randf()
 	novo_inimigo.position = localizacao_spawn.position
@@ -92,7 +93,14 @@ func _on_cooldown_spawn_timeout() -> void:
 	$UI.pausado.connect(novo_inimigo.alternar_pause)
 	$UI.retomar.connect(novo_inimigo.alternar_pause)
 	
+	if wave >= 7 and rand < 0.2: novo_inimigo.alterar_tipo_movimento(Inimigo.estilos_movimento.LADO)
+	elif wave >= 5 and rand < 0.3: novo_inimigo.alterar_tipo_movimento(Inimigo.estilos_movimento.RETO_TIRO)
+	elif wave >= 3 and rand < 0.4: novo_inimigo.alterar_tipo_movimento(Inimigo.estilos_movimento.ONDULATORIO)
+	else: novo_inimigo.alterar_tipo_movimento(Inimigo.estilos_movimento.RETO)
+	
 	add_child(novo_inimigo)
+	$CooldownSpawn.wait_time = randf() + 0.5
+	$CooldownSpawn.wait_time_backup = $CooldownSpawn.wait_time
 
 func _on_contagem_timeout() -> void:
 	tempo += 1

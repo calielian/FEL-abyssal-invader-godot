@@ -45,7 +45,6 @@ script = ExtResource("8_5vw27")
 metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [node name="CooldownSpawn" type="Timer" parent="."]
-wait_time = 0.5
 script = ExtResource("8_5vw27")
 metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 

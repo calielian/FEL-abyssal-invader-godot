@@ -15,6 +15,7 @@ func pausar():
 
 func despausar():
 	if _pausado:
+		wait_time_backup = wait_time
 		wait_time = _tempo_restante_ao_pausar
 		start()
 		_pausado = false

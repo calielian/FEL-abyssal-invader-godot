@@ -1,7 +1,8 @@
 class_name Bala
-extends RigidBody2D
+extends Area2D
 
 @export var stats: BalaBase
+var inimiga := false
 
 var local_perfuracao: int
 
@@ -9,10 +10,10 @@ func _ready() -> void:
 	$Sprite2D.texture = stats.sprite
 	$Sprite2D.scale = Vector2(stats.escala_textura, stats.escala_textura)
 	$CollisionShape2D.scale = Vector2(stats.escala_hitbox, stats.escala_hitbox)
-	linear_velocity = Vector2(0, -stats.velocidade)
 	self.local_perfuracao = stats.perfuracao
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	position.y += -stats.velocidade * delta
 	if self.local_perfuracao == 0:
 		queue_free() 
 
@@ -25,8 +26,9 @@ func get_tipo() -> String:
 func perfurar() -> void:
 	self.local_perfuracao -= 1
 
-func pausar() -> void:
-	linear_velocity = Vector2.ZERO
+func alternar_pause() -> void:
+	set_process(not is_processing())
 
-func despausar() -> void:
-	linear_velocity = Vector2(0, -stats.velocidade)
+func _on_area_entered(area: Area2D) -> void:
+	if area is Player and inimiga:
+		area.tomar_dano()

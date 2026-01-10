@@ -12,8 +12,6 @@ var sair := false
 var continuar_butao: Button
 var sair_butao: Button
 
-
-
 const CONFIG := "user://score.cfg"
 
 var score := 0

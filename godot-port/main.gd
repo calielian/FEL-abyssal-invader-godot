@@ -82,7 +82,7 @@ func _on_cooldown_blast_timeout() -> void:
 	cooldown_blast = false
 
 func _on_cooldown_spawn_timeout() -> void:
-	var novo_inimigo: Area2D = cena_inimigo.instantiate()
+	var novo_inimigo = cena_inimigo.instantiate()
 	var localizacao_spawn := $PathSpawn/SpawnLocations
 	
 	localizacao_spawn.progress_ratio = randf()

@@ -7,9 +7,12 @@ signal inimigo_morto()
 @export var sprites: Array[Texture2D]
 var local_stats: Stats
 
+var pausado := false
+
 func _ready() -> void:
 	$Sprite2D.texture = sprites.pick_random()
 	local_stats = stats.clonar()
+	$AnimationPlayer.set("active", true)
 
 func _process(delta: float) -> void:
 	position.y += stats.velocidade * delta
@@ -29,6 +32,11 @@ func tomar_dano():
 	if self.local_stats.vida == 0:
 		inimigo_morto.emit()
 		queue_free()
+		return
+
+	$FrameInvencibilidade.comecar()
+	$AnimationPlayer.play("piscar")
+	$CollisionShape2D.set_deferred("disabled", true)
 
 func set_vida(nova_vida: int):
 	local_stats.vida = nova_vida
@@ -39,3 +47,13 @@ func _on_area_entered(area: Area2D) -> void:
 
 func alternar_pause() -> void:
 	set_process(not is_processing())
+	pausado = not pausado
+	if not pausado and $AnimationPlayer.is_playing():
+		$FrameInvencibilidade.pausar()
+		$AnimationPlayer.pause()
+	elif $FrameInvencibilidade.esta_pausado():
+		$FrameInvencibilidade.despausar()
+		$AnimationPlayer.play("piscar")
+
+func _on_frame_invencibilidade_timeout() -> void:
+	$CollisionShape2D.disabled = false

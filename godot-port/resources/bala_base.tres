@@ -6,6 +6,5 @@
 [resource]
 script = ExtResource("1_ahnm1")
 tipo_bala = "Default"
-escala_textura = 0.13
-escala_hitbox = 0.5
+tempo_espera = 0.5
 metadata/_custom_type_script = "uid://tr7vaev0126j"

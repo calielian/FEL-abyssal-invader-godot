@@ -64,6 +64,7 @@ metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 [connection signal="retomar" from="UI" to="." method="_on_ui_retomar"]
 [connection signal="retomar" from="UI" to="Background" method="alternar_pausado"]
 [connection signal="retomar" from="UI" to="Player" method="alternar_pause"]
+[connection signal="game_over" from="Player" to="UI" method="game_over"]
 [connection signal="vida_perdida" from="Player" to="." method="_on_player_vida_perdida"]
 [connection signal="vida_perdida" from="Player" to="UI" method="_on_player_vida_perdida"]
 [connection signal="timeout" from="CooldownDefault" to="." method="_on_cooldown_default_timeout"]

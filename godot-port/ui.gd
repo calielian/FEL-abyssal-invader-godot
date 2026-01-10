@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var vidas: Array[Sprite2D] = [$Jogo/Coracao]
 @onready var vida_perdida := Sprite2D.new()
+@onready var vida_cheia := Sprite2D.new()
 
 signal iniciar_jogo
 signal retomar
@@ -17,6 +18,8 @@ var score := 0
 
 func _ready() -> void:
 	vida_perdida.texture = load("res://images/heart-empty.png")
+	vida_cheia.texture =  load("res://images/heart-full.png")
+	
 	continuar_butao = $MainMenu/Iniciar
 	sair_butao = $MainMenu/Sair
 
@@ -58,20 +61,20 @@ func _on_player_vida_perdida() -> void:
 func desenhar_vidas(qtd: int) -> void:
 	var anterior: Sprite2D = vidas[0]
 	for i in range(1, qtd):
-		print("Desenhando vida " + str(i))
 		var coracao = Sprite2D.new()
 
-		coracao.texture = anterior.texture
+		coracao.texture = vida_cheia.texture
 		coracao.scale = anterior.scale
 		coracao.position.y = anterior.position.y
 		coracao.position.x = anterior.position.x + (anterior.get_rect().size.x * anterior.scale.x) + 5
 
 		vidas.push_back(coracao)
-		coracao.visible = false
+		coracao.visible = true
 		anterior = coracao
 		$Jogo.add_child(coracao)
 
-func atualizar_pontuacao(pontuacao: int) -> void:
+func atualizar_pontuacao(pontuacao: int, high_score: int) -> void:
+	score = high_score
 	$Jogo/Pontuacao.text = str(pontuacao)
 
 func trocar_visibilidade(node_mestre: Node) -> void:
@@ -90,17 +93,16 @@ func _on_iniciar_pressed() -> void:
 	iniciar_jogo.emit()
 	trocar_visibilidade($MainMenu)
 	trocar_visibilidade($Jogo)
+	desenhar_vidas(3)
 	set_process(false)
 
 func _on_sair_pressed() -> void:
 	get_tree().quit()
 
-func pause(high_score: int) -> void:
+func pause() -> void:
 	pausado.emit()
 	trocar_visibilidade($Jogo)
 	trocar_visibilidade($Pause)
-	
-	score = high_score
 	
 	$Pause/HighScore.text = "[i]High Score: " + str(score) + "[/i]"
 	
@@ -133,4 +135,38 @@ func _on_sair_pause_mouse_entered() -> void:
 	sair = true
 
 func game_over() -> void:
-	pass
+	pausado.emit()
+	trocar_visibilidade($GameOver)
+	
+	vidas[0].texture = vida_perdida.texture
+	
+	$GameOver/HighScore.text = "[i]High Score: " + str(score) + "[/i]"
+	
+	continuar_butao = $GameOver/Recomecar
+	sair_butao = $GameOver/Sair
+	
+	for timer: TimerPausavel in get_parent().timers:
+		timer.pausar()
+	
+	set_process(true)
+
+func _on_sair_game_over_mouse_entered() -> void:
+	$GameOver/OpcaoSelecionada.position = $GameOver/MarcadorSair.position
+	sair = true
+
+func _on_recomecar_pressed() -> void:
+	for timer: TimerPausavel in get_parent().timers:
+		timer._reset()
+	
+	for coracao in vidas:
+		coracao.texture = vida_cheia.texture
+	
+	desenhar_vidas(3)
+
+	iniciar_jogo.emit()
+	trocar_visibilidade($GameOver)
+	set_process(false)
+
+func _on_recomecar_mouse_entered() -> void:
+	$GameOver/OpcaoSelecionada.position = $GameOver/MarcadorRecomecar.position
+	sair = false

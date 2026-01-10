@@ -311,6 +311,120 @@ theme_override_fonts/font = ExtResource("1_fyqef")
 theme_override_font_sizes/font_size = 16
 text = ">          <"
 
+[node name="GameOver" type="Node" parent="."]
+
+[node name="Background" type="ColorRect" parent="GameOver"]
+visible = false
+z_index = 1
+offset_right = 800.0
+offset_bottom = 800.0
+color = Color(0, 0, 0, 0.5294118)
+
+[node name="GameOver" type="Label" parent="GameOver"]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -40.5
+offset_right = 111.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_ibotj")
+theme_override_font_sizes/font_size = 64
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScore" type="RichTextLabel" parent="GameOver"]
+visible = false
+z_index = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -61.0
+offset_right = 800.0
+offset_bottom = -20.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.72156864, 0.5254902, 0.043137256, 1)
+theme_override_fonts/italics_font = ExtResource("5_n5ude")
+theme_override_font_sizes/italics_font_size = 32
+bbcode_enabled = true
+text = "[i]High Score: 0[/i]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Recomecar" type="Button" parent="GameOver"]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = 38.0
+offset_right = 47.5
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ok7cu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ibotj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_n5ude")
+text = "RECOMEÇAR"
+
+[node name="Sair" type="Button" parent="GameOver"]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.5
+offset_top = 83.0
+offset_right = 47.5
+offset_bottom = 141.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_nltto")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_irxef")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y4yjw")
+theme_override_styles/focus = SubResource("StyleBoxFlat_waa4j")
+text = "SAIR"
+
+[node name="MarcadorRecomecar" type="Marker2D" parent="GameOver"]
+visible = false
+z_index = 1
+position = Vector2(332, 456)
+
+[node name="MarcadorSair" type="Marker2D" parent="GameOver"]
+visible = false
+z_index = 1
+position = Vector2(332, 501)
+
+[node name="OpcaoSelecionada" type="Label" parent="GameOver"]
+visible = false
+z_index = 1
+offset_left = 332.0
+offset_top = 456.0
+offset_right = 470.0
+offset_bottom = 477.0
+theme_override_fonts/font = ExtResource("1_fyqef")
+theme_override_font_sizes/font_size = 16
+text = ">            <"
+
 [node name="Jogo" type="Node" parent="."]
 
 [node name="Pontuacao" type="Label" parent="Jogo"]
@@ -390,3 +504,9 @@ vertical_alignment = 1
 [connection signal="focus_entered" from="Pause/Sair" to="." method="_on_sair_pause_mouse_entered"]
 [connection signal="mouse_entered" from="Pause/Sair" to="." method="_on_sair_pause_mouse_entered"]
 [connection signal="pressed" from="Pause/Sair" to="." method="_on_sair_pause_pressed"]
+[connection signal="focus_entered" from="GameOver/Recomecar" to="." method="_on_recomecar_mouse_entered"]
+[connection signal="mouse_entered" from="GameOver/Recomecar" to="." method="_on_recomecar_mouse_entered"]
+[connection signal="pressed" from="GameOver/Recomecar" to="." method="_on_recomecar_pressed"]
+[connection signal="focus_entered" from="GameOver/Sair" to="." method="_on_sair_game_over_mouse_entered"]
+[connection signal="mouse_entered" from="GameOver/Sair" to="." method="_on_sair_game_over_mouse_entered"]
+[connection signal="pressed" from="GameOver/Sair" to="." method="_on_sair_pause_pressed"]

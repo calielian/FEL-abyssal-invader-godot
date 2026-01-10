@@ -36,7 +36,7 @@ func _ready() -> void:
 	high_score = config.get_value("player", "high_score")
 
 func _process(_delta: float) -> void:
-	$UI.atualizar_pontuacao(score)
+	$UI.atualizar_pontuacao(score, high_score)
 	if Input.is_action_pressed("atirar") and iniciado:
 		if not cooldown_default: 
 			var nova_bala: Bala = cena_bala.instantiate()
@@ -46,23 +46,25 @@ func _process(_delta: float) -> void:
 			cooldown_default = true
 			$UI.pausado.connect(nova_bala.pausar)
 			$UI.retomar.connect(nova_bala.despausar)
+			$Player.game_over.connect(nova_bala.pausar)
 		
 			add_child(nova_bala)
 	
 	if Input.is_action_pressed("pausar") and iniciado:
-		$UI.pause(high_score)
+		$UI.pause()
 		iniciado = false
 
 		for timer: TimerPausavel in timers:
 			timer.pausar()
 
 func novo_jogo():
+	if $Player.its_over: $Background.alternar_pausado()
 	$Player.restart()
-	$UI.desenhar_vidas($Player.stats.vida)
 	$CooldownSpawn.comecar()
 	$Contagem.comecar()
 	iniciado = true
 	get_tree().call_group("inimigo", "queue_free")
+	get_tree().call_group("bala", "queue_free")
 
 func _on_cooldown_default_timeout() -> void:
 	cooldown_default = false
@@ -75,7 +77,7 @@ func _on_cooldown_blast_timeout() -> void:
 
 func _on_cooldown_spawn_timeout() -> void:
 	var novo_inimigo: Area2D = cena_inimigo.instantiate()
-	var localizacao_spawn = $PathSpawn/SpawnLocations
+	var localizacao_spawn := $PathSpawn/SpawnLocations
 	
 	localizacao_spawn.progress_ratio = randf()
 	novo_inimigo.position = localizacao_spawn.position

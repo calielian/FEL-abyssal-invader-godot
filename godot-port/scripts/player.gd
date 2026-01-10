@@ -9,6 +9,8 @@ var stats_backup: Stats
 
 var tamanho_tela: Vector2
 
+var its_over := false
+
 func _ready() -> void:
 	tamanho_tela = get_viewport_rect().size
 	stats_backup = stats.clonar()
@@ -32,8 +34,10 @@ func tomar_dano() -> void:
 
 	if stats.vida == 0:
 		game_over.emit()
+		its_over = true
 		hide()
 		$CollisionShape2D.set_deferred("disabled", true)
+		$AnimationPlayer.stop()
 		return
 
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -46,6 +50,9 @@ func _on_frame_invencibilidade_timeout() -> void:
 func restart():
 	position.x = tamanho_tela.x / 2
 	stats = stats_backup.clonar()
+	$CollisionShape2D.disabled = false
+	set_process(true)
+	its_over = false
 	show()
 
 func alternar_pause() -> void:

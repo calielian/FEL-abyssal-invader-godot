@@ -59,6 +59,7 @@ script = ExtResource("8_5vw27")
 metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [connection signal="iniciar_jogo" from="UI" to="." method="novo_jogo"]
+[connection signal="nova_wave" from="UI" to="." method="_on_ui_nova_wave"]
 [connection signal="pausado" from="UI" to="Background" method="alternar_pausado"]
 [connection signal="pausado" from="UI" to="Player" method="alternar_pause"]
 [connection signal="retomar" from="UI" to="." method="_on_ui_retomar"]

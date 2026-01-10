@@ -18,6 +18,8 @@ var score := 0
 var high_score := 0
 var iniciado := false
 
+var wave := 1
+
 const CONFIG := "user://score.cfg"
 
 func _ready() -> void:
@@ -113,3 +115,7 @@ func _on_ui_retomar() -> void:
 
 	for timer: TimerPausavel in timers:
 		timer.despausar()
+
+func _on_ui_nova_wave() -> void:
+	wave += 1
+	$UI.alterar_wave(wave)

@@ -29,8 +29,15 @@ const CONFIG := "user://score.cfg"
 
 func _ready() -> void:
 	$CooldownDefault.wait_time = recursos_bala["Default"].tempo_espera
+	$CooldownDefault.wait_time_backup = recursos_bala["Default"].tempo_espera
+	
 	$CooldownShotgun.wait_time = recursos_bala["Shotgun"].tempo_espera
+	$CooldownShotgun.wait_time_backup = recursos_bala["Shotgun"].tempo_espera
+	
 	$CooldownBlast.wait_time = recursos_bala["Blast"].tempo_espera
+	$CooldownBlast.wait_time_backup = recursos_bala["Blast"].tempo_espera
+	
+	$UI.definir_tempo_timers(recursos_bala)
 	
 	var config := ConfigFile.new()
 	
@@ -43,17 +50,59 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$UI.atualizar_pontuacao(score, high_score)
+	$UI.atualizar_cooldown_visual()
+	
+	if Input.is_action_pressed("bala_default") and iniciado:
+		tipo_bala_selecionado = "Default"
+		$UI.alterar_arma(tipo_bala_selecionado)
+	
+	if Input.is_action_pressed("bala_shotgun") and iniciado:
+		tipo_bala_selecionado = "Shotgun"
+		$UI.alterar_arma(tipo_bala_selecionado)
+	
+	if Input.is_action_pressed("bala_blast") and iniciado:
+		tipo_bala_selecionado = "Blast"
+		$UI.alterar_arma(tipo_bala_selecionado)
+	
 	if Input.is_action_pressed("atirar") and iniciado:
-		if not cooldown_default: 
+		if tipo_bala_selecionado == "Default" and not cooldown_default: 
 			var nova_bala: Bala = cena_bala.instantiate()
 			nova_bala.stats = recursos_bala["Default"].clonar()
 			nova_bala.position = $Player.position
 			$CooldownDefault.comecar()
+			$UI/Jogo/RegNormal.visible = true
+			$UI/Jogo/TimerRegNormal.comecar()
 			cooldown_default = true
 			$UI.pausado.connect(nova_bala.alternar_pause)
 			$UI.retomar.connect(nova_bala.alternar_pause)
 			$Player.game_over.connect(nova_bala.alternar_pause)
-		
+
+			add_child(nova_bala)
+		elif tipo_bala_selecionado == "Shotgun" and not cooldown_shotgun: 
+			var nova_bala: Bala = cena_bala.instantiate()
+			nova_bala.stats = recursos_bala["Shotgun"].clonar()
+			nova_bala.position = $Player.position
+			$CooldownShotgun.comecar()
+			$UI/Jogo/RegShotgun.visible = true
+			$UI/Jogo/TimerRegShotgun.comecar()
+			cooldown_shotgun = true
+			$UI.pausado.connect(nova_bala.alternar_pause)
+			$UI.retomar.connect(nova_bala.alternar_pause)
+			$Player.game_over.connect(nova_bala.alternar_pause)
+
+			add_child(nova_bala)
+		elif tipo_bala_selecionado == "Blast" and not cooldown_blast: 
+			var nova_bala: Bala = cena_bala.instantiate()
+			nova_bala.stats = recursos_bala["Blast"].clonar()
+			nova_bala.position = $Player.position
+			$CooldownBlast.comecar()
+			$UI/Jogo/RegBlast.visible = true
+			$UI/Jogo/TimerRegBlast.comecar()
+			cooldown_blast = true
+			$UI.pausado.connect(nova_bala.alternar_pause)
+			$UI.retomar.connect(nova_bala.alternar_pause)
+			$Player.game_over.connect(nova_bala.alternar_pause)
+
 			add_child(nova_bala)
 	
 	if Input.is_action_pressed("pausar") and iniciado:

@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var vidas: Array[Sprite2D] = [$Jogo/Coracao]
 @onready var vida_perdida := Sprite2D.new()
 @onready var vida_cheia := Sprite2D.new()
+@onready var timers_reg: Array[TimerPausavel] = [$Jogo/TimerRegNormal, $Jogo/TimerRegShotgun, $Jogo/TimerRegBlast]
 
 signal iniciar_jogo
 signal retomar
@@ -46,6 +47,15 @@ func alterar_tempo(tempo: int) -> void:
 func alterar_wave(wave: int) -> void:
 	$Jogo/Wave.text = "Wave " + str(wave)
 
+func alterar_arma(tipo: String) -> void:
+	match tipo:
+		"Default":
+			$Jogo/BalaSelecionada.position = $Jogo/MarcadorBalaNormal.position
+		"Shotgun":
+			$Jogo/BalaSelecionada.position = $Jogo/MarcadorBalaShotgun.position
+		"Blast":
+			$Jogo/BalaSelecionada.position = $Jogo/MarcadorBalaBlast.position
+
 func formatar(tempo: int) -> String:
 	if tempo < 10:
 		return "0" + str(tempo)
@@ -80,9 +90,13 @@ func atualizar_pontuacao(pontuacao: int, high_score: int) -> void:
 	score = high_score
 	$Jogo/Pontuacao.text = str(pontuacao)
 
-func trocar_visibilidade(node_mestre: Node) -> void:
+func trocar_visibilidade(node_mestre: Node) -> void:  
 	for node in node_mestre.get_children():
-		node.visible = not node.visible
+		if node is not ColorRect and node is CanvasItem:
+			node.visible = not node.visible
+		elif node is TimerPausavel: continue
+		elif not node.get_accessibility_name() == "reg":
+			node.visible = not node.visible
 
 func _on_iniciar_mouse_entered() -> void:
 	$MainMenu/OpcaoSelecionada.position = $MainMenu/MarcadorIniciar.position
@@ -109,6 +123,9 @@ func pause() -> void:
 	
 	$Pause/HighScore.text = "[i]High Score: " + str(score) + "[/i]"
 	
+	for timer in timers_reg:
+		timer.pausar()
+	
 	continuar_butao = $Pause/Voltar
 	sair_butao = $Pause/Sair
 	
@@ -118,6 +135,9 @@ func _on_voltar_pressed() -> void:
 	trocar_visibilidade($Pause)
 	trocar_visibilidade($Jogo)
 	retomar.emit()
+	
+	for timer in timers_reg:
+		timer.despausar()
 
 	set_process(false)
 
@@ -144,6 +164,9 @@ func game_over() -> void:
 	vidas[0].texture = vida_perdida.texture
 	
 	$GameOver/HighScore.text = "[i]High Score: " + str(score) + "[/i]"
+	
+	for timer in timers_reg:
+		timer.stop()
 	
 	continuar_butao = $GameOver/Recomecar
 	sair_butao = $GameOver/Sair
@@ -173,3 +196,24 @@ func _on_recomecar_pressed() -> void:
 func _on_recomecar_mouse_entered() -> void:
 	$GameOver/OpcaoSelecionada.position = $GameOver/MarcadorRecomecar.position
 	sair = false
+
+func definir_tempo_timers(timers: Dictionary[String, BalaBase]) -> void:
+	$Jogo/TimerRegNormal.wait_time = timers["Default"].tempo_espera
+	$Jogo/TimerRegNormal.wait_time_backup = timers["Default"].tempo_espera
+	
+	$Jogo/TimerRegShotgun.wait_time = timers["Shotgun"].tempo_espera
+	$Jogo/TimerRegShotgun.wait_time_backup = timers["Shotgun"].tempo_espera
+	
+	$Jogo/TimerRegBlast.wait_time = timers["Blast"].tempo_espera
+	$Jogo/TimerRegBlast.wait_time_backup = timers["Blast"].tempo_espera
+
+func atualizar_cooldown_visual() -> void:
+	var cooldowns_rect: Array[ColorRect] = [$Jogo/RegNormal, $Jogo/RegShotgun, $Jogo/RegBlast]
+	var altura_maxima : float = $Jogo/RegDefaultSize.size.y
+	
+	for index in range(3):
+		if cooldowns_rect[index].visible:
+			cooldowns_rect[index].size.y = altura_maxima * (timers_reg[index].time_left / timers_reg[index].wait_time)
+			if cooldowns_rect[index].size.y <= 0:
+				cooldowns_rect[index].visible = false
+				cooldowns_rect[index].size.y = altura_maxima

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://byfg3fy1if51j"]
+[gd_scene load_steps=19 format=3 uid="uid://byfg3fy1if51j"]
 
 [ext_resource type="Script" uid="uid://3sf7cf42vv2d" path="res://ui.gd" id="1_27fn8"]
 [ext_resource type="FontFile" uid="uid://1nh04dcnbiw7" path="res://fonts/photonico.ttf" id="1_fyqef"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c4wl7vwr1tuw1" path="res://images/bullets/bullet-default.png" id="7_ok7cu"]
 [ext_resource type="Texture2D" uid="uid://ccbxqmk73lrxa" path="res://images/bullets/bullet-shotgun.png" id="8_irxef"]
 [ext_resource type="Texture2D" uid="uid://cqrwbkr0084cb" path="res://images/bullets/bullet-blast.png" id="9_e2l4f"]
+[ext_resource type="Script" uid="uid://b1rf01q6r78uh" path="res://resources/scripts/timer_pausavel.gd" id="10_irxef"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nltto"]
 content_margin_left = 4.0
@@ -513,15 +514,6 @@ text = "•"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BalaSelecionada" type="Panel" parent="Jogo"]
-visible = false
-offset_left = 620.0
-offset_top = 99.65487
-offset_right = 718.65485
-offset_bottom = 152.65488
-rotation = -1.5707964
-theme_override_styles/panel = SubResource("StyleBoxFlat_e2l4f")
-
 [node name="BalaNormal" type="Sprite2D" parent="Jogo"]
 visible = false
 position = Vector2(630, 95)
@@ -560,6 +552,64 @@ centered = false
 visible = false
 position = Vector2(732, 100)
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="RegNormal" type="ColorRect" parent="Jogo"]
+visible = false
+offset_left = 622.0
+offset_top = 4.0
+offset_right = 671.0
+offset_bottom = 97.0
+accessibility_name = "reg"
+color = Color(0.41568628, 0.41568628, 0.41568628, 0.6666667)
+
+[node name="RegShotgun" type="ColorRect" parent="Jogo"]
+visible = false
+offset_left = 678.0
+offset_top = 4.0
+offset_right = 727.0
+offset_bottom = 97.0
+accessibility_name = "reg"
+color = Color(0.41568628, 0.41568628, 0.41568628, 0.6666667)
+
+[node name="RegBlast" type="ColorRect" parent="Jogo"]
+visible = false
+offset_left = 734.0
+offset_top = 4.0
+offset_right = 783.0
+offset_bottom = 97.0
+accessibility_name = "reg"
+color = Color(0.41568628, 0.41568628, 0.41568628, 0.6666667)
+
+[node name="BalaSelecionada" type="Panel" parent="Jogo"]
+visible = false
+offset_left = 620.0
+offset_top = 99.65487
+offset_right = 718.65485
+offset_bottom = 152.65488
+rotation = -1.5707964
+theme_override_styles/panel = SubResource("StyleBoxFlat_e2l4f")
+
+[node name="RegDefaultSize" type="ReferenceRect" parent="Jogo"]
+visible = false
+offset_left = 555.0
+offset_top = 4.0
+offset_right = 604.0
+offset_bottom = 97.0
+
+[node name="TimerRegNormal" type="Timer" parent="Jogo"]
+one_shot = true
+script = ExtResource("10_irxef")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
+
+[node name="TimerRegShotgun" type="Timer" parent="Jogo"]
+one_shot = true
+script = ExtResource("10_irxef")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
+
+[node name="TimerRegBlast" type="Timer" parent="Jogo"]
+one_shot = true
+script = ExtResource("10_irxef")
+metadata/_custom_type_script = "uid://b1rf01q6r78uh"
 
 [connection signal="focus_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/Iniciar" to="." method="_on_iniciar_mouse_entered"]

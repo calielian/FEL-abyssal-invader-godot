@@ -4,6 +4,9 @@ extends CanvasLayer
 @onready var vida_perdida := Sprite2D.new()
 @onready var vida_cheia := Sprite2D.new()
 @onready var timers_reg: Array[TimerPausavel] = [$Jogo/TimerRegNormal, $Jogo/TimerRegShotgun, $Jogo/TimerRegBlast]
+@onready var cooldowns_rect: Array[ColorRect] = [$Jogo/RegNormal, $Jogo/RegShotgun, $Jogo/RegBlast]
+
+var rects_visiveis: Array[ColorRect]
 
 signal iniciar_jogo
 signal retomar
@@ -129,6 +132,11 @@ func pause() -> void:
 	continuar_butao = $Pause/Voltar
 	sair_butao = $Pause/Sair
 	
+	for rect in cooldowns_rect:
+		if rect.visible:
+			rects_visiveis.push_back(rect)
+			rect.visible = false
+	
 	set_process(true)
 
 func _on_voltar_pressed() -> void:
@@ -138,6 +146,11 @@ func _on_voltar_pressed() -> void:
 	
 	for timer in timers_reg:
 		timer.despausar()
+	
+	for rect in rects_visiveis:
+		rect.visible = true
+	
+	rects_visiveis.clear()
 
 	set_process(false)
 
@@ -171,6 +184,12 @@ func game_over() -> void:
 	continuar_butao = $GameOver/Recomecar
 	sair_butao = $GameOver/Sair
 	
+	for rect in rects_visiveis:
+		rect.visible = false
+		rect.size.y = $Jogo/RegDefaultSize.y
+	
+	rects_visiveis.clear()
+
 	for timer: TimerPausavel in get_parent().timers:
 		timer.pausar()
 	
@@ -208,7 +227,6 @@ func definir_tempo_timers(timers: Dictionary[String, BalaBase]) -> void:
 	$Jogo/TimerRegBlast.wait_time_backup = timers["Blast"].tempo_espera
 
 func atualizar_cooldown_visual() -> void:
-	var cooldowns_rect: Array[ColorRect] = [$Jogo/RegNormal, $Jogo/RegShotgun, $Jogo/RegBlast]
 	var altura_maxima : float = $Jogo/RegDefaultSize.size.y
 	
 	for index in range(3):

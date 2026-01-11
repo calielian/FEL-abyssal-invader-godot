@@ -16,6 +16,7 @@ var pausado := false
 var cooldown_bala := false
 
 var tempo := 0.0
+var wave := 1
 
 var esta_indo_direita := true
 var tamanho_tela: Vector2
@@ -30,22 +31,23 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	tempo += delta
+	var velocidade = local_stats.velocidade + wave * 5
 	
 	match estilo_movimento:
 		estilos_movimento.RETO:
-			position.y += local_stats.velocidade * delta
+			position.y += velocidade * delta
 
 		estilos_movimento.ONDULATORIO:
 			const frequencia := 3.0
 			const amplitude := 1.0
 			var direcao_movimento: float = sin(tempo * frequencia) * amplitude
 
-			position.y += local_stats.velocidade * delta
+			position.y += velocidade * delta
 			position.x += direcao_movimento
 			$Sprite2D.rotation = -atan2(direcao_movimento, 1)
 
 		estilos_movimento.RETO_TIRO:
-			position.y += local_stats.velocidade * delta
+			position.y += velocidade * delta
 			if not cooldown_bala: atirar()
 
 		estilos_movimento.LADO:

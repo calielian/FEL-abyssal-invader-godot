@@ -3,17 +3,26 @@ extends Area2D
 
 @export var stats: BalaBase
 var inimiga := false
+var direcao := 0
 
 var local_perfuracao: int
 
 func _ready() -> void:
 	$Sprite2D.texture = stats.sprite
+	print(stats.tipo_bala)
 	$Sprite2D.scale = Vector2(stats.escala_textura, stats.escala_textura)
 	$CollisionShape2D.scale = Vector2(stats.escala_hitbox, stats.escala_hitbox)
 	self.local_perfuracao = stats.perfuracao
 
 func _process(delta: float) -> void:
-	position.y += -stats.velocidade * delta
+	if not stats.tipo_bala == "Shotgun":
+		
+		position.y += -stats.velocidade * delta
+	else:
+		print("verdadeiro")
+		position.y += -stats.velocidade * delta
+		position.x += ((stats.velocidade / 3) * direcao) * delta
+
 	if self.local_perfuracao == 0:
 		queue_free() 
 

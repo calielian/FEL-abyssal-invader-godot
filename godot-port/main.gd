@@ -76,21 +76,29 @@ func _process(_delta: float) -> void:
 			$UI.pausado.connect(nova_bala.alternar_pause)
 			$UI.retomar.connect(nova_bala.alternar_pause)
 			$Player.game_over.connect(nova_bala.alternar_pause)
+			$AudioTiro.play()
 
 			add_child(nova_bala)
 		elif tipo_bala_selecionado == "Shotgun" and not cooldown_shotgun: 
-			var nova_bala: Bala = cena_bala.instantiate()
-			nova_bala.stats = recursos_bala["Shotgun"].clonar()
-			nova_bala.position = $Player.position
+			var novas_bala: Array[Bala] = [cena_bala.instantiate(), cena_bala.instantiate(), cena_bala.instantiate()]
+			
+			novas_bala[0].rotate(-PI / 4)
+			novas_bala[0].direcao = -1
+			novas_bala[1].rotate(PI / 4)
+			novas_bala[1].direcao = 1
+			
+			for nova_bala in novas_bala:
+				nova_bala.stats = recursos_bala["Shotgun"].clonar()
+				nova_bala.position = $Player.position
+				$UI.pausado.connect(nova_bala.alternar_pause)
+				$UI.retomar.connect(nova_bala.alternar_pause)
+				$Player.game_over.connect(nova_bala.alternar_pause)
+				add_child(nova_bala)
+			cooldown_shotgun = true
 			$CooldownShotgun.comecar()
 			$UI/Jogo/RegShotgun.visible = true
 			$UI/Jogo/TimerRegShotgun.comecar()
-			cooldown_shotgun = true
-			$UI.pausado.connect(nova_bala.alternar_pause)
-			$UI.retomar.connect(nova_bala.alternar_pause)
-			$Player.game_over.connect(nova_bala.alternar_pause)
-
-			add_child(nova_bala)
+			$AudioTiro.play()
 		elif tipo_bala_selecionado == "Blast" and not cooldown_blast: 
 			var nova_bala: Bala = cena_bala.instantiate()
 			nova_bala.stats = recursos_bala["Blast"].clonar()
@@ -102,6 +110,7 @@ func _process(_delta: float) -> void:
 			$UI.pausado.connect(nova_bala.alternar_pause)
 			$UI.retomar.connect(nova_bala.alternar_pause)
 			$Player.game_over.connect(nova_bala.alternar_pause)
+			$AudioTiro.play()
 
 			add_child(nova_bala)
 	
@@ -137,6 +146,7 @@ func _on_cooldown_spawn_timeout() -> void:
 	
 	localizacao_spawn.progress_ratio = randf()
 	novo_inimigo.position = localizacao_spawn.position
+	novo_inimigo.wave = wave
 	novo_inimigo.acerto.connect(_on_inimigo_acerto)
 	novo_inimigo.inimigo_morto.connect(_on_inimigo_morto)
 	$UI.pausado.connect(novo_inimigo.alternar_pause)
@@ -165,11 +175,13 @@ func _on_player_vida_perdida() -> void:
 	var explosao: AnimatedSprite2D = cena_explosao.instantiate()
 	explosao.position = $Player.position
 	add_child(explosao)
+	$AudioExplosao.play()
 
 func _on_inimigo_acerto(posicao: Vector2) -> void:
 	var explosao: AnimatedSprite2D = cena_explosao.instantiate()
 	explosao.position = posicao
 	add_child(explosao)
+	$AudioExplosao.play()
 
 func _on_inimigo_morto() -> void:
 	score += 10

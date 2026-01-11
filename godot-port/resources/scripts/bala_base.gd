@@ -13,6 +13,7 @@ extends Resource
 func clonar() -> BalaBase:
 	var novo := BalaBase.new()
 
+	novo.tipo_bala = self.tipo_bala
 	novo.dano = self.dano
 	novo.perfuracao = self.perfuracao
 	novo.velocidade = self.velocidade
